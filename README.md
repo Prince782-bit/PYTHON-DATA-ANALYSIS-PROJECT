@@ -1,2 +1,2 @@
 # PYTHON-DATA-ANALYSIS-PROJECT
-I developed some projects using python library Pandas. 
+I developed some projects using python libraries. 
