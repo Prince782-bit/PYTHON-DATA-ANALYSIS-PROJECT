@@ -283,7 +283,7 @@ class Hospital:
             conn = mysql.connector.connect(
                 host="localhost",
                 user="root",
-                password="your_pass",
+                password="Pyadav001",
                 database="mydata"
             )
             my_cursor = conn.cursor()
