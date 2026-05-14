@@ -251,7 +251,8 @@ class Hospital:
                     port=3306
                 )
                 my_cursor = conn.cursor()
-                my_cursor.execute("INSERT INTO hospital (Nameoftablets, ref, Dose, NumberofTablets, Lot, Issuedate, ExpDate, DailyDose, StorageAdvice, nhsNumber, PatientName, DateOfBirth, PatientAddress) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                my_cursor.execute("INSERT INTO hospital (Nameoftablets, ref, Dose, NumberofTablets,Lot, Issuedate, ExpDate, DailyDose,sideEfect, " \
+                "FurtherInformation,StorageAdvice, DrivingUsingMachine,HowToUseMedication, PatientId,nhsNumber, PatientName,DateOfBirth, PatientAddress) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
                     self.Nameoftablets.get(),
                     self.ref.get(),
                     self.Dose.get(),
@@ -260,7 +261,12 @@ class Hospital:
                     self.Issuedate.get(),
                     self.ExpDate.get(),
                     self.DailyDose.get(),
+                    self.sideEfect.get(),
+                    self.FurtherInformation.get(),
+                    self.DrivingUsingMachine.get(),
                     self.StorageAdvice.get(),
+                    self.HowToUseMedication.get(),
+                    self.PatientId.get(),
                     self.nhsNumber.get(),
                     self.PatientName.get(),
                     self.DateOfBirth.get(),
@@ -278,7 +284,9 @@ class Hospital:
 
 
 
+
     def update_data(self):
+
         try:
             conn = mysql.connector.connect(
                 host="localhost",
@@ -286,27 +294,35 @@ class Hospital:
                 password="Pyadav001",
                 database="mydata"
             )
+
             my_cursor = conn.cursor()
 
-            # Adjust column names matches those used in your table schema
             query = """
-                UPDATE hospital SET 
-                    Nameoftablets=%s,
-                    Dose=%s,
-                    NumberofTablets=%s,
-                    Lot=%s,
-                    Issuedate=%s,
-                    ExpDate=%s,
-                    DailyDose=%s,
-                    StorageAdvice=%s,
-                    nhsNumber=%s,
-                    PatientName=%s,
-                    DateOfBirth=%s,
-                    PatientAddress=%s
-                WHERE ref=%s
+            UPDATE hospital SET
+
+                Nameoftablets=%s,
+                Dose=%s,
+                NumberofTablets=%s,
+                Lot=%s,
+                Issuedate=%s,
+                ExpDate=%s,
+                DailyDose=%s,
+                sideEfect=%s,
+                FurtherInformation=%s,
+                StorageAdvice=%s,
+                DrivingUsingMachine=%s,
+                HowToUseMedication=%s,
+                PatientId=%s,
+                nhsNumber=%s,
+                PatientName=%s,
+                DateOfBirth=%s,
+                PatientAddress=%s
+
+            WHERE ref=%s
             """
 
             values = (
+
                 self.Nameoftablets.get(),
                 self.Dose.get(),
                 self.NumberofTablets.get(),
@@ -314,40 +330,44 @@ class Hospital:
                 self.Issuedate.get(),
                 self.ExpDate.get(),
                 self.DailyDose.get(),
+                self.sideEfect.get(),
+                self.FurtherInformation.get(),
                 self.StorageAdvice.get(),
+                self.DrivingUsingMachine.get(),
+                self.HowToUseMedication.get(),
+                self.PatientId.get(),
                 self.nhsNumber.get(),
                 self.PatientName.get(),
                 self.DateOfBirth.get(),
                 self.PatientAddress.get(),
                 self.ref.get()
             )
+
             my_cursor.execute(query, values)
+
             conn.commit()
 
             if my_cursor.rowcount == 0:
-                messagebox.showwarning("Update", "No record found to update with this Reference No.")
-            else:
-                messagebox.showinfo("Success", "Record updated successfully")
+                messagebox.showwarning(
+                    "Update",
+                    "No record found with this Reference No."
+                )
 
-            self.fatch_data()  # Refresh the table
-            self.clear()       # Clear input fields after update
+            else:
+                messagebox.showinfo(
+                    "Success",
+                    "Record updated successfully"
+                )
+
+            self.fatch_data()
+            self.clear()
 
         except mysql.connector.Error as err:
-            messagebox.showerror("Error", f"Database Error: {err}")
+            messagebox.showerror("Database Error", f"{err}")
 
         finally:
             if conn.is_connected():
                 conn.close()
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -365,6 +385,9 @@ class Hospital:
         conn.close()
 
 
+    
+
+
 
 
     
@@ -380,11 +403,16 @@ class Hospital:
         self.Issuedate.set(row[5])
         self.ExpDate.set(row[6])
         self.DailyDose.set(row[7])
-        self.StorageAdvice.set(row[8])
-        self.nhsNumber.set(row[9])
-        self.PatientName.set(row[10])
-        self.DateOfBirth.set(row[11])
-        self.PatientAddress.set(row[12])
+        self.sideEfect.set(row[8])
+        self.FurtherInformation.set(row[9])
+        self.StorageAdvice.set(row[10])
+        self.DrivingUsingMachine.set(row[11])
+        self.HowToUseMedication.set(row[12])
+        self.PatientId.set(row[13])
+        self.nhsNumber.set(row[14])
+        self.PatientName.set(row[15])
+        self.DateOfBirth.set(row[16])
+        self.PatientAddress.set(row[17])
 
 
 
@@ -406,6 +434,7 @@ class Hospital:
         self.txtPrescription.insert(END,"PatientName:\t\t\t"+self.PatientName.get()+"\n")
         self.txtPrescription.insert(END,"DateOfBirth:\t\t\t"+self.DateOfBirth.get()+"\n")
         self.txtPrescription.insert(END,"PatientAddress:\t\t\t"+self.PatientAddress.get()+"\n")
+        
 
 
     def idelete(self):
@@ -453,6 +482,7 @@ class Hospital:
         self.DrivingUsingMachine.set("")
         self.HowToUseMedication.set("")
         self.PatientId.set("")
+        self.nhsNumber.set("")  
         self.PatientName.set("")
         self.DateOfBirth.set("")
         self.PatientAddress.set("")
