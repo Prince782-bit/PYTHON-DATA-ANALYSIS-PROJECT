@@ -24,14 +24,16 @@ class Hospital:
         self.DailyDose=StringVar()
         self.sideEfect=StringVar()
         self.FurtherInformation=StringVar()
+        self.BloodPressure=StringVar()
         self.StorageAdvice=StringVar()
-        self.DrivingUsingMachine=StringVar()
-        self.HowToUseMedication=StringVar()
+        self.Medication=StringVar()
         self.PatientId=StringVar()
         self.nhsNumber=StringVar()
         self.PatientName=StringVar()
         self.DateOfBirth=StringVar()
         self.PatientAddress=StringVar()       
+
+
 
 
         lbltitle=Label(self.root,bd=20,relief=RIDGE,text="HOSPITAL MANAGEMENT SYSTEM",fg="red",bg="white",font=("times new roman",50,"bold"))
@@ -112,7 +114,7 @@ class Hospital:
 
         lblDrivingMachine = Label(DataFrameLeft,font=("arial",12,"bold"),text="Blood Pressure:",padx=2,pady=6)
         lblDrivingMachine.grid(row=1,column=2,sticky=W)
-        txtDrivingMachine=Entry(DataFrameLeft,font=("arial",12,"bold"),textvariable=self.DrivingUsingMachine,width=35)
+        txtDrivingMachine=Entry(DataFrameLeft,font=("arial",12,"bold"),textvariable=self.BloodPressure,width=35)
         txtDrivingMachine.grid(row=1,column=3)
 
         lblStorage = Label(DataFrameLeft,font=("arial",12,"bold"),text="Storage Advice:",padx=2,pady=6)
@@ -122,7 +124,7 @@ class Hospital:
 
         lblMedicine = Label(DataFrameLeft,font=("arial",12,"bold"),text="Medication:",padx=2,pady=6)
         lblMedicine.grid(row=3,column=2,sticky=W)
-        txtMedicine=Entry(DataFrameLeft,font=("arial",12,"bold"),textvariable=self.HowToUseMedication,width=35)
+        txtMedicine=Entry(DataFrameLeft,font=("arial",12,"bold"),textvariable=self.Medication,width=35)
         txtMedicine.grid(row=3,column=3,sticky=W)
 
         lblPatientId = Label(DataFrameLeft,font=("arial",12,"bold"),text="Patient Id:",padx=2,pady=6)
@@ -177,17 +179,16 @@ class Hospital:
 
 
         # ====================== Table ===============================
+        
         # ====================== Scrollbar ===========================
         scroll_x = ttk.Scrollbar(Detailsframe,orient=HORIZONTAL)
         scroll_y = ttk.Scrollbar(Detailsframe,orient=VERTICAL)
-        self.hospital_table = ttk.Treeview(Detailsframe,column=("nameoftable","ref","dose","nooftablets","lot","issuedate",
-                                        "expdate","dailydose","storage","nhsnumber","pname","dob","address"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+        self.hospital_table = ttk.Treeview(Detailsframe,column=("Nameoftablets","ref","Dose","NumberofTablets","Lot","Issuedate",
+                                        "ExpDate","DailyDose","sideEfect","FurtherInformation","BloodPressure","StorageAdvice","Medication","PatientId","nhsNumber","PatientName","DateOfBirth","PatientAddress"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
         
 
         scroll_x.pack(side=BOTTOM, fill=X)
         scroll_y.pack(side=RIGHT, fill=Y)
-
-
 
 
         scroll_x=ttk.Scrollbar(command = self.hospital_table.xview)
@@ -196,45 +197,56 @@ class Hospital:
 
 
 
-        self.hospital_table.heading("nameoftable", text="Name of Table")
+        self.hospital_table.heading("Nameoftablets", text="Name of Table")
         self.hospital_table.heading("ref",text="Reference No.")
-        self.hospital_table.heading("dose",text="Dose")
-        self.hospital_table.heading("nooftablets",text="No of Tablets")
-        self.hospital_table.heading("lot",text="Lot")
-        self.hospital_table.heading("issuedate",text="Issue Date")
-        self.hospital_table.heading("expdate",text="Exp Date")
-        self.hospital_table.heading("dailydose",text="Daily Data")
-        self.hospital_table.heading("storage",text="Storage")
-        self.hospital_table.heading("nhsnumber",text="NHS Number")
-        self.hospital_table.heading("pname",text="Patient Name")
-        self.hospital_table.heading("dob",text="DOB")
-        self.hospital_table.heading("address",text="Address")
+        self.hospital_table.heading("Dose",text="Dose")
+        self.hospital_table.heading("NumberofTablets",text="No of Tablets")
+        self.hospital_table.heading("Lot",text="Lot")
+        self.hospital_table.heading("Issuedate",text="Issue Date")
+        self.hospital_table.heading("ExpDate",text="Exp Date")
+        self.hospital_table.heading("DailyDose",text="Daily Data")  
+        self.hospital_table.heading("sideEfect",text="SideEfect")  
+        self.hospital_table.heading("FurtherInformation",text="FurtherInformation")   
+        self.hospital_table.heading("BloodPressure",text="BloodPressure")
+        self.hospital_table.heading("StorageAdvice",text="StorageAdvice")   
+        self.hospital_table.heading("Medication",text="Medication")   
+        self.hospital_table.heading("PatientId",text="Patient Id")   
+        self.hospital_table.heading("nhsNumber",text="NHS Number")
+        self.hospital_table.heading("PatientName",text="Patient Name")
+        self.hospital_table.heading("DateOfBirth",text="DOB")
+        self.hospital_table.heading("PatientAddress",text="Address")
 
         self.hospital_table["show"]="headings"
 
 
 
 
-        self.hospital_table.column("nameoftable",width=100)
+        self.hospital_table.column("Nameoftablets",width=100)
         self.hospital_table.column("ref",width=100)
-        self.hospital_table.column("dose",width=100)
-        self.hospital_table.column("ref",width=100)
-        self.hospital_table.column("nooftablets",width=100)
-        self.hospital_table.column("lot",width=100)
-        self.hospital_table.column("issuedate",width=100)
-        self.hospital_table.column("expdate",width=100)
-        self.hospital_table.column("dailydose",width=100)
-        self.hospital_table.column("storage",width=100)
-        self.hospital_table.column("nhsnumber",width=100)
-        self.hospital_table.column("pname",width=100)
-        self.hospital_table.column("dob",width=100)
-        self.hospital_table.column("address",width=100)
+        self.hospital_table.column("Dose",width=100)
+        self.hospital_table.column("NumberofTablets",width=100)
+        self.hospital_table.column("Lot",width=100)
+        self.hospital_table.column("Issuedate",width=100)
+        self.hospital_table.column("ExpDate",width=100)
+        self.hospital_table.column("DailyDose",width=100)
+        self.hospital_table.column("sideEfect",width=100)
+        self.hospital_table.column("FurtherInformation",width=100)
+        self.hospital_table.column("BloodPressure",width=100)
+        self.hospital_table.column("StorageAdvice",width=100)   
+        self.hospital_table.column("Medication",width=100)   
+        self.hospital_table.column("PatientId",width=100)  
+
+        self.hospital_table.column("nhsNumber",width=100)
+        self.hospital_table.column("PatientName",width=100)
+        self.hospital_table.column("DateOfBirth",width=100)
+        self.hospital_table.column("PatientAddress",width=100)
 
         self.hospital_table.pack(fill=BOTH,expand=1)
         self.hospital_table.bind("<ButtonRelease-1>",self.get_cursor)
 
 
         self.fatch_data()
+
 
     # ====================== Functionality Declaration ==================
 
@@ -252,7 +264,7 @@ class Hospital:
                 )
                 my_cursor = conn.cursor()
                 my_cursor.execute("INSERT INTO hospital (Nameoftablets, ref, Dose, NumberofTablets,Lot, Issuedate, ExpDate, DailyDose,sideEfect, " \
-                "FurtherInformation,StorageAdvice, DrivingUsingMachine,HowToUseMedication, PatientId,nhsNumber, PatientName,DateOfBirth, PatientAddress) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                "FurtherInformation,BloodPressure, StorageAdvice,Medication, PatientId,nhsNumber, PatientName,DateOfBirth, PatientAddress) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
                     self.Nameoftablets.get(),
                     self.ref.get(),
                     self.Dose.get(),
@@ -263,9 +275,9 @@ class Hospital:
                     self.DailyDose.get(),
                     self.sideEfect.get(),
                     self.FurtherInformation.get(),
-                    self.DrivingUsingMachine.get(),
+                    self.BloodPressure.get(),
                     self.StorageAdvice.get(),
-                    self.HowToUseMedication.get(),
+                    self.Medication.get(),
                     self.PatientId.get(),
                     self.nhsNumber.get(),
                     self.PatientName.get(),
@@ -292,7 +304,8 @@ class Hospital:
                 host="localhost",
                 user="root",
                 password="Pyadav001",
-                database="mydata"
+                database="mydata",
+                port=3306
             )
 
             my_cursor = conn.cursor()
@@ -309,9 +322,9 @@ class Hospital:
                 DailyDose=%s,
                 sideEfect=%s,
                 FurtherInformation=%s,
+                BloodPressure=%s,
                 StorageAdvice=%s,
-                DrivingUsingMachine=%s,
-                HowToUseMedication=%s,
+                Medication=%s,
                 PatientId=%s,
                 nhsNumber=%s,
                 PatientName=%s,
@@ -332,9 +345,9 @@ class Hospital:
                 self.DailyDose.get(),
                 self.sideEfect.get(),
                 self.FurtherInformation.get(),
+                self.BloodPressure.get(),
                 self.StorageAdvice.get(),
-                self.DrivingUsingMachine.get(),
-                self.HowToUseMedication.get(),
+                self.Medication.get(),
                 self.PatientId.get(),
                 self.nhsNumber.get(),
                 self.PatientName.get(),
@@ -405,9 +418,9 @@ class Hospital:
         self.DailyDose.set(row[7])
         self.sideEfect.set(row[8])
         self.FurtherInformation.set(row[9])
-        self.StorageAdvice.set(row[10])
-        self.DrivingUsingMachine.set(row[11])
-        self.HowToUseMedication.set(row[12])
+        self.BloodPressure.set(row[10])
+        self.StorageAdvice.set(row[11])
+        self.Medication.set(row[12])
         self.PatientId.set(row[13])
         self.nhsNumber.set(row[14])
         self.PatientName.set(row[15])
@@ -427,8 +440,8 @@ class Hospital:
         self.txtPrescription.insert(END,"daily Dose:\t\t\t"+self.DailyDose.get()+"\n")
         self.txtPrescription.insert(END,"Side Effect:\t\t\t"+self.sideEfect.get()+"\n")
         self.txtPrescription.insert(END,"Further Information:\t\t\t"+self.FurtherInformation.get()+"\n")
-        self.txtPrescription.insert(END,"StorageAdvice:\t\t\t"+self.StorageAdvice.get()+"\n")
-        self.txtPrescription.insert(END,"DrivingUsingMachine:\t\t\t"+self.DrivingUsingMachine.get()+"\n")
+        self.txtPrescription.insert(END,"StorageAdvice:\t\t\t"+self.BloodPressure.get()+"\n")
+        self.txtPrescription.insert(END,"DrivingUsingMachine:\t\t\t"+self.StorageAdvice.get()+"\n")
         self.txtPrescription.insert(END,"PatientId:\t\t\t"+self.PatientId.get()+"\n")
         self.txtPrescription.insert(END,"NHSNumber:\t\t\t"+self.nhsNumber.get()+"\n")
         self.txtPrescription.insert(END,"PatientName:\t\t\t"+self.PatientName.get()+"\n")
@@ -478,9 +491,9 @@ class Hospital:
         self.DailyDose.set("")
         self.sideEfect.set("")
         self.FurtherInformation.set("")
+        self.BloodPressure.set("")
         self.StorageAdvice.set("")
-        self.DrivingUsingMachine.set("")
-        self.HowToUseMedication.set("")
+        self.Medication.set("")
         self.PatientId.set("")
         self.nhsNumber.set("")  
         self.PatientName.set("")
