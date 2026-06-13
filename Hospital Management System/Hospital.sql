@@ -23,5 +23,3 @@ CREATE TABLE hospital (
     PatientAddress VARCHAR(255)
 
 );
-select * from hospital;
-
